@@ -1,0 +1,32 @@
+{
+  "original_rows": 525461,
+  "rows_after_cleaning": 400916,
+  "rows_removed": 124545,
+  "retention_rate": 76.3,
+  "missing_values_before": {
+    "CustomerID": 107927,
+    "Description": 2928
+  },
+  "missing_values_after": {
+    "CustomerID": 0,
+    "Description": 0
+  },
+  "steps_applied": [
+    {
+      "step": "remove_missing_customer_ids",
+      "rows_removed": 107927
+    },
+    {
+      "step": "handle_cancelled_invoices",
+      "rows_removed": 9839
+    },
+    {
+      "step": "handle_negative_quantities",
+      "rows_removed": 31
+    },
+    {
+      "step": "remove_outliers",
+      "rows_removed": 6748
+    }
+  ]
+}

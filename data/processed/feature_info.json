@@ -1,0 +1,234 @@
+{
+  "total_features": 27,
+  "feature_categories": {
+    "rfm": 4,
+    "behavioral": 8,
+    "temporal": 5,
+    "product": 6,
+    "derived": 4
+  },
+  "churn_rate": 0.33,
+  "training_cutoff": "2010-09-09",
+  "observation_end": "2010-12-09",
+  "training_customers": 4312,
+  "churned_customers": 1435,
+  "active_customers": 2877,
+  "features": [
+    {
+      "name": "Recency",
+      "type": "numeric",
+      "description": "Recency feature",
+      "min": 1.0,
+      "max": 374.0,
+      "mean": 91.17
+    },
+    {
+      "name": "Frequency",
+      "type": "numeric",
+      "description": "Frequency feature",
+      "min": 1.0,
+      "max": 205.0,
+      "mean": 4.46
+    },
+    {
+      "name": "Monetary",
+      "type": "numeric",
+      "description": "Monetary feature",
+      "min": 2.95,
+      "max": 349164.35,
+      "mean": 2040.41
+    },
+    {
+      "name": "AvgOrderValue",
+      "type": "numeric",
+      "description": "AvgOrderValue feature",
+      "min": 2.95,
+      "max": 11880.84,
+      "mean": 376.37
+    },
+    {
+      "name": "UniqueProducts_x",
+      "type": "numeric",
+      "description": "UniqueProducts_x feature",
+      "min": 1.0,
+      "max": 1741.0,
+      "mean": 63.65
+    },
+    {
+      "name": "TotalQuantity",
+      "type": "numeric",
+      "description": "TotalQuantity feature",
+      "min": 1.0,
+      "max": 220600.0,
+      "mean": 1280.05
+    },
+    {
+      "name": "AvgQuantity",
+      "type": "numeric",
+      "description": "AvgQuantity feature",
+      "min": 1.0,
+      "max": 4460.294117647059,
+      "mean": 21.5
+    },
+    {
+      "name": "MaxQuantity",
+      "type": "numeric",
+      "description": "MaxQuantity feature",
+      "min": 1.0,
+      "max": 19152.0,
+      "mean": 90.41
+    },
+    {
+      "name": "MinQuantity",
+      "type": "numeric",
+      "description": "MinQuantity feature",
+      "min": 1.0,
+      "max": 2000.0,
+      "mean": 6.39
+    },
+    {
+      "name": "AvgBasketSize",
+      "type": "numeric",
+      "description": "AvgBasketSize feature",
+      "min": 1.0,
+      "max": 87167.0,
+      "mean": 254.62
+    },
+    {
+      "name": "MaxBasketSize",
+      "type": "numeric",
+      "description": "MaxBasketSize feature",
+      "min": 1.0,
+      "max": 87167.0,
+      "mean": 441.32
+    },
+    {
+      "name": "MinBasketSize",
+      "type": "numeric",
+      "description": "MinBasketSize feature",
+      "min": 1.0,
+      "max": 87167.0,
+      "mean": 146.39
+    },
+    {
+      "name": "PurchaseSpanDays",
+      "type": "numeric",
+      "description": "PurchaseSpanDays feature",
+      "min": 0.0,
+      "max": 373.0,
+      "mean": 134.0
+    },
+    {
+      "name": "ActiveMonths",
+      "type": "numeric",
+      "description": "ActiveMonths feature",
+      "min": 1.0,
+      "max": 13.0,
+      "mean": 5.37
+    },
+    {
+      "name": "AvgOrderValueTxn",
+      "type": "numeric",
+      "description": "AvgOrderValueTxn feature",
+      "min": 1.993684210526316,
+      "max": 10953.5,
+      "mean": 37.01
+    },
+    {
+      "name": "MaxOrderValueTxn",
+      "type": "numeric",
+      "description": "MaxOrderValueTxn feature",
+      "min": 2.95,
+      "max": 15818.4,
+      "mean": 127.62
+    },
+    {
+      "name": "StdOrderValueTxn",
+      "type": "numeric",
+      "description": "StdOrderValueTxn feature",
+      "min": 0.0,
+      "max": 2513.4503792547025,
+      "mean": 23.26
+    },
+    {
+      "name": "UniqueProducts_y",
+      "type": "numeric",
+      "description": "UniqueProducts_y feature",
+      "min": 1.0,
+      "max": 1741.0,
+      "mean": 63.65
+    },
+    {
+      "name": "UniqueInvoices",
+      "type": "numeric",
+      "description": "UniqueInvoices feature",
+      "min": 1.0,
+      "max": 205.0,
+      "mean": 4.46
+    },
+    {
+      "name": "ProductsPerInvoice",
+      "type": "numeric",
+      "description": "ProductsPerInvoice feature",
+      "min": 0.0769230769230769,
+      "max": 220.0,
+      "mean": 18.51
+    },
+    {
+      "name": "PurchasesPerMonth",
+      "type": "numeric",
+      "description": "PurchasesPerMonth feature",
+      "min": 0.1666666666666666,
+      "max": 15.76923076923077,
+      "mean": 0.93
+    },
+    {
+      "name": "UniqueProducts",
+      "type": "numeric",
+      "description": "UniqueProducts feature",
+      "min": 1.0,
+      "max": 1741.0,
+      "mean": 63.65
+    },
+    {
+      "name": "MonetaryPerProduct",
+      "type": "numeric",
+      "description": "MonetaryPerProduct feature",
+      "min": 2.1645714285714286,
+      "max": 13916.34,
+      "mean": 57.14
+    },
+    {
+      "name": "MonetaryPerInvoice",
+      "type": "numeric",
+      "description": "MonetaryPerInvoice feature",
+      "min": 2.95,
+      "max": 11880.84,
+      "mean": 376.37
+    },
+    {
+      "name": "RecencyBucket",
+      "type": "numeric",
+      "description": "RecencyBucket feature",
+      "min": 1.0,
+      "max": 4.0,
+      "mean": 2.49
+    },
+    {
+      "name": "FrequencyBucket",
+      "type": "numeric",
+      "description": "FrequencyBucket feature",
+      "min": 1.0,
+      "max": 4.0,
+      "mean": 2.5
+    },
+    {
+      "name": "MonetaryBucket",
+      "type": "numeric",
+      "description": "MonetaryBucket feature",
+      "min": 1.0,
+      "max": 4.0,
+      "mean": 2.5
+    }
+  ]
+}
