@@ -51,8 +51,8 @@ The following libraries are required for deployment:
 3. Sign in using GitHub
 4. Click **New App**
 5. Select:
-   - Repository: customer_churn_prediction
-   - Branch: main
+   - Repository: `durgareddysmiley/customer_churn_prediction`
+   - Branch: `main`
    - Main file path: `app/streamlit_app.py`
 6. Click **Deploy**
 7. Wait for the build process to complete (2–5 minutes)
@@ -74,10 +74,7 @@ After deployment, the following checks were performed:
 
 ## Live Application URL
 
-**[PASTE YOUR STREAMLIT CLOUD URL HERE]**
-
-Example:
-https://customer-churn-prediction.streamlit.app
+https://customerchurnprediction-jibszt4dpax8mqc4yw76x.streamlit.app
 
 ---
 
