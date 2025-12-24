@@ -1,32 +1,60 @@
 {
-  "original_rows": 525461,
-  "rows_after_cleaning": 400916,
-  "rows_removed": 124545,
-  "retention_rate": 76.3,
-  "missing_values_before": {
-    "CustomerID": 107927,
-    "Description": 2928
-  },
-  "missing_values_after": {
-    "CustomerID": 0,
-    "Description": 0
-  },
-  "steps_applied": [
-    {
-      "step": "remove_missing_customer_ids",
-      "rows_removed": 107927
+    "original_rows": 525461,
+    "rows_after_cleaning": 342273,
+    "rows_removed": 183188,
+    "missing_values_before": {
+        "InvoiceNo": 0,
+        "StockCode": 0,
+        "Description": 2928,
+        "Quantity": 0,
+        "InvoiceDate": 0,
+        "Price": 0,
+        "CustomerID": 107927,
+        "Country": 0
     },
-    {
-      "step": "handle_cancelled_invoices",
-      "rows_removed": 9839
+    "missing_values_after": {
+        "InvoiceNo": 0,
+        "StockCode": 0,
+        "Description": 0,
+        "Quantity": 0,
+        "InvoiceDate": 0,
+        "Price": 0,
+        "CustomerID": 0,
+        "Country": 0,
+        "TotalPrice": 0,
+        "Year": 0,
+        "Month": 0,
+        "DayOfWeek": 0,
+        "Hour": 0
     },
-    {
-      "step": "handle_negative_quantities",
-      "rows_removed": 31
-    },
-    {
-      "step": "remove_outliers",
-      "rows_removed": 6748
-    }
-  ]
+    "steps_applied": [
+        {
+            "step": "remove_missing_customer_ids",
+            "rows_removed": 107927
+        },
+        {
+            "step": "handle_cancelled_invoices",
+            "rows_removed": 9839
+        },
+        {
+            "step": "handle_negative_quantities",
+            "rows_removed": 0
+        },
+        {
+            "step": "handle_zero_prices",
+            "rows_removed": 31
+        },
+        {
+            "step": "handle_missing_descriptions",
+            "rows_removed": 0
+        },
+        {
+            "step": "remove_outliers",
+            "rows_removed": 59051
+        },
+        {
+            "step": "remove_duplicates",
+            "rows_removed": 6340
+        }
+    ]
 }

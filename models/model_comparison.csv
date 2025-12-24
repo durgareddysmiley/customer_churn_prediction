@@ -1,0 +1,6 @@
+Model,Accuracy,Precision,Recall,F1-Score,ROC-AUC,Training_Time
+Logistic Regression,0.6548,0.5922,0.6073,0.5996,0.7182,0.6
+Decision Tree,0.63,0.56,0.58,0.57,0.6898,0.2
+Random Forest,0.67,0.61,0.64,0.625,0.7134,1.2
+Gradient Boosting,0.68,0.62,0.66,0.64,0.7086,1.8
+Neural Network,0.6467,0.572,0.6748,0.6192,0.7137,0.65
