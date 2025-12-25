@@ -2,32 +2,53 @@ import pandas as pd
 import numpy as np
 from datetime import timedelta
 import json
+import os
+
 
 class FeatureEngineer:
+    """
+    Feature engineering pipeline for customer churn prediction.
+
+    This class:
+    - Splits data into training and observation windows
+    - Creates churn target variable
+    - Generates RFM, behavioral, temporal, and product features
+    - Saves final customer-level dataset
+    """
 
     def __init__(self, transactions_path='data/processed/cleaned_transactions.csv'):
+        """
+        Initialize FeatureEngineer.
 
+        Args:
+            transactions_path (str): Path to cleaned transaction data
+        """
         self.transactions = pd.read_csv(
             transactions_path,
             parse_dates=['InvoiceDate']
         )
 
-        # Dynamic 90-day observation window
+        # -----------------------------
+        # DEFINE TEMPORAL WINDOWS
+        # -----------------------------
         self.observation_end = self.transactions['InvoiceDate'].max()
-        self.training_cutoff = self.observation_end - timedelta(days=90)
+
+        # ✅ FIXED: 120-day observation window (controls churn rate)
+        self.training_cutoff = self.observation_end - timedelta(days=120)
 
         self.training_data = None
         self.observation_data = None
         self.customer_features = None
 
         print(f"Loaded {len(self.transactions)} transactions")
-        print(f"Training cutoff: {self.training_cutoff}")
-        print(f"Observation end: {self.observation_end}")
+        print(f"Training cutoff date : {self.training_cutoff}")
+        print(f"Observation end date : {self.observation_end}")
 
     # -------------------------------------------------
     def split_data_by_time(self):
-        print("\nSplitting data into training and observation...")
-
+        """
+        Split transactions into training and observation periods.
+        """
         self.training_data = self.transactions[
             self.transactions['InvoiceDate'] <= self.training_cutoff
         ].copy()
@@ -36,14 +57,19 @@ class FeatureEngineer:
             self.transactions['InvoiceDate'] > self.training_cutoff
         ].copy()
 
-        print(f"Training transactions: {len(self.training_data)}")
-        print(f"Observation transactions: {len(self.observation_data)}")
+        print(f"Training transactions    : {len(self.training_data)}")
+        print(f"Observation transactions : {len(self.observation_data)}")
+
         return self
 
     # -------------------------------------------------
     def create_target_variable(self):
-        print("\nCreating churn target variable...")
+        """
+        Create churn target variable.
 
+        Churn = 1 if customer appears in training period
+        but NOT in observation period.
+        """
         train_customers = set(self.training_data['CustomerID'].unique())
         obs_customers = set(self.observation_data['CustomerID'].unique())
 
@@ -62,8 +88,9 @@ class FeatureEngineer:
 
     # -------------------------------------------------
     def create_rfm_features(self):
-        print("\nCreating RFM features...")
-
+        """
+        Create RFM (Recency, Frequency, Monetary) features.
+        """
         df = self.training_data.copy()
 
         rfm = df.groupby('CustomerID').agg({
@@ -87,12 +114,14 @@ class FeatureEngineer:
         self.customer_features = self.customer_features.merge(
             rfm, on='CustomerID', how='left'
         )
+
         return self
 
     # -------------------------------------------------
     def create_behavioral_features(self):
-        print("\nCreating behavioral features...")
-
+        """
+        Create behavioral features such as purchase gaps and basket size.
+        """
         df = self.training_data.copy()
 
         gap = df.sort_values('InvoiceDate').groupby('CustomerID').agg({
@@ -106,7 +135,12 @@ class FeatureEngineer:
             ['mean', 'std', 'max']
         ).reset_index()
 
-        basket_stats.columns = ['CustomerID', 'AvgBasketSize', 'StdBasketSize', 'MaxBasketSize']
+        basket_stats.columns = [
+            'CustomerID',
+            'AvgBasketSize',
+            'StdBasketSize',
+            'MaxBasketSize'
+        ]
 
         time_pref = df.groupby('CustomerID').agg({
             'DayOfWeek': lambda x: x.mode()[0],
@@ -125,12 +159,14 @@ class FeatureEngineer:
             .merge(time_pref, on='CustomerID', how='left')
             .merge(country_div, on='CustomerID', how='left')
         )
+
         return self
 
     # -------------------------------------------------
     def create_temporal_features(self):
-        print("\nCreating temporal features...")
-
+        """
+        Create customer lifetime and recent activity features.
+        """
         df = self.training_data.copy()
 
         life = df.groupby('CustomerID')['InvoiceDate'].agg(['min', 'max']).reset_index()
@@ -142,14 +178,16 @@ class FeatureEngineer:
 
         life = life.merge(
             self.customer_features[['CustomerID', 'Frequency']],
-            on='CustomerID', how='left'
+            on='CustomerID',
+            how='left'
         )
 
         life['PurchaseVelocity'] = life['Frequency'] / (life['CustomerLifetimeDays'] + 1)
 
         self.customer_features = self.customer_features.merge(
             life[['CustomerID', 'CustomerLifetimeDays', 'PurchaseVelocity']],
-            on='CustomerID', how='left'
+            on='CustomerID',
+            how='left'
         )
 
         for d in [30, 60, 90]:
@@ -159,17 +197,20 @@ class FeatureEngineer:
             )['InvoiceNo'].nunique().reset_index()
 
             recent.columns = ['CustomerID', f'Purchases_Last{d}Days']
+
             self.customer_features = self.customer_features.merge(
                 recent, on='CustomerID', how='left'
             )
 
         self.customer_features.fillna(0, inplace=True)
+
         return self
 
     # -------------------------------------------------
     def create_product_features(self):
-        print("\nCreating product features...")
-
+        """
+        Create product diversity and price preference features.
+        """
         df = self.training_data.copy()
 
         diversity = df.groupby('CustomerID')['StockCode'].agg(
@@ -195,13 +236,14 @@ class FeatureEngineer:
             .merge(diversity, on='CustomerID', how='left')
             .merge(price_stats, on='CustomerID', how='left')
         )
+
         return self
 
     # -------------------------------------------------
     def create_rfm_segments(self):
-        print("\nCreating RFM segments...")
-
-        # Rank-based qcut (bulletproof fix)
+        """
+        Create RFM scores and segments using quartiles.
+        """
         self.customer_features['RecencyScore'] = pd.qcut(
             self.customer_features['Recency'].rank(method='first'),
             4, labels=[4, 3, 2, 1]
@@ -222,14 +264,19 @@ class FeatureEngineer:
             self.customer_features['FrequencyScore'] +
             self.customer_features['MonetaryScore']
         )
+
         return self
 
     # -------------------------------------------------
     def save_features(self):
-        print("\nSaving customer features...")
+        """
+        Save engineered features and metadata.
+        """
+        os.makedirs('data/processed', exist_ok=True)
 
         self.customer_features.to_csv(
-            'data/processed/customer_features.csv', index=False
+            'data/processed/customer_features.csv',
+            index=False
         )
 
         info = {
@@ -246,19 +293,25 @@ class FeatureEngineer:
 
     # -------------------------------------------------
     def run_pipeline(self):
-        self.split_data_by_time()
-        self.create_target_variable()
-        self.create_rfm_features()
-        self.create_behavioral_features()
-        self.create_temporal_features()
-        self.create_product_features()
-        self.create_rfm_segments()
-        self.save_features()
+        """
+        Execute full feature engineering pipeline.
+        """
+        self.split_data_by_time() \
+            .create_target_variable() \
+            .create_rfm_features() \
+            .create_behavioral_features() \
+            .create_temporal_features() \
+            .create_product_features() \
+            .create_rfm_segments() \
+            .save_features()
 
-        print("\nFinal dataset shape:", self.customer_features.shape)
+        print("Final dataset shape:", self.customer_features.shape)
         return self.customer_features
 
 
+# ==================================================
+# MAIN EXECUTION
+# ==================================================
 if __name__ == "__main__":
     engineer = FeatureEngineer(
         transactions_path='data/processed/cleaned_transactions.csv'
