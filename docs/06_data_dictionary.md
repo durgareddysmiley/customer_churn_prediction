@@ -1,49 +1,26 @@
 # Data Dictionary
 
-**Raw Dataset:** Online Retail II (Excel)
+**Raw Dataset**: `online_retail.csv`
 
----
-
-## Column Descriptions
-
-| Column Name   | Data Type | Description | Example Values | Missing % | Notes |
-|--------------|----------|-------------|----------------|-----------|-------|
-| Invoice | String | Invoice number for each transaction. Invoices starting with 'C' indicate cancellations | 536365, C536365 | 0% | Used to identify cancelled transactions |
-| StockCode | String | Product (item) code | 85123A | 0% | Some non-standard codes exist |
-| Description | String | Product name | WHITE HANGING HEART T-LIGHT HOLDER | ~0.3% | Requires cleaning or placeholder |
-| Quantity | Integer | Quantity of products per transaction | 6, -1 | 0% | Negative values indicate returns |
-| InvoiceDate | DateTime | Date and time of transaction | 2010-12-01 08:26:00 | 0% | Date range: 2009–2011 |
-| Price | Float | Unit price of product in GBP (£) | 2.55 | 0% | Some zero or negative values exist |
-| CustomerID | Float | Unique customer identifier | 17850.0 | ~25% | High missing rate |
-| Country | String | Customer country | United Kingdom | 0% | 38 unique countries |
-
----
+| Column Name | Data Type | Description | Example Values | Missing % (Approx) | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **InvoiceNo** | String | 6-digit invoice number. If it starts with 'C', it indicates a cancellation. | 536365, C536365 | 0% | Unique identifier for the transaction/invoice. |
+| **StockCode** | String | 5-digit product code. | 85123A, 22423 | 0% | Some non-standard codes (e.g., 'POST', 'D') exist. |
+| **Description** | String | Product name. | WHITE HANGING HEART T-LIGHT HOLDER | ~0.2% | Text cleaning required (case, whitespace). |
+| **Quantity** | Integer | Quantity of each product per transaction. | 6, -1 | 0% | Negative values typically indicate returns/cancellations. |
+| **InvoiceDate** | DateTime | The day and time when each transaction was generated. | 2010-12-01 08:26:00 | 0% | Range: 2009-2011 (depending on specific dataset version). |
+| **UnitPrice** | Float | Product price per unit in sterling (£). | 2.55, 0.0 | 0% | Zero values might indicate errors or gifts. |
+| **CustomerID** | Float/Int | 5-digit customer identifier. | 17850.0 | ~25% | Key for customer-level aggregation. Missing values must be handled (removed). |
+| **Country** | String | The name of the country where each customer resides. | United Kingdom | 0% | 38+ unique countries. |
 
 ## Data Quality Issues Identified
-
-- Missing values in **CustomerID (~25%)**
-- Missing values in **Description (<1%)**
-- Cancelled invoices identified by `'C'` prefix
-- Negative quantities indicating product returns
-- Zero or negative prices
-- Presence of duplicate rows
-- Extremely high quantity values (potential outliers)
-
----
+- **Missing CustomerID**: Significant portion of the data (~25%) has no CustomerID, making it unusable for churn prediction.
+- **Cancellations**: Invoices starting with 'C' needs handling (removal or separate feature).
+- **Negative Quantities**: Correspond to cancellations or errors.
+- **StockCode Anomalies**: Manual codes like 'POSTAGE', 'DOT', 'M' (Manual).
 
 ## Data Cleaning Required
-
-- Remove rows with missing **CustomerID**
-- Handle missing **Description** values (impute or drop)
-- Remove cancelled invoices
-- Remove rows with negative quantities
-- Remove or cap outliers in **Quantity** and **Price**
-- Convert **InvoiceDate** to datetime
-- Remove duplicate records
-- Ensure all numeric values are valid and positive where required
-
----
-
-## Summary
-
-This data dictionary documents all raw dataset columns, their data types, missing value percentages, and known data quality issues. It serves as a reference for the data cleaning and feature engineering phases.
+1.  **Drop Correlation**: Remove rows with missing `CustomerID`.
+2.  **Handle Cancellations**: Remove invoices starting with 'C'.
+3.  **Handle Returns**: Filter out negative quantities.
+4.  **Type Conversion**: Convert `InvoiceDate` to datetime, `CustomerID` to integer.

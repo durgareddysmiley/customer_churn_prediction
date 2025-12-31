@@ -1,60 +1,29 @@
 # Business Problem Statement
 
 ## 1. Business Context
-
-The e-commerce industry is highly competitive, with multiple platforms offering similar products and prices. Customers can easily switch between platforms, which makes customer retention a critical challenge.
-
-Customer retention is very important because acquiring a new customer costs 5 to 25 times more than retaining an existing one. Loyal customers also tend to purchase more frequently and generate higher lifetime value.
-
-RetailCo Analytics is currently facing difficulty in identifying customers who are likely to stop purchasing and lacks insights into customer purchasing behavior.
-
----
+In the highly competitive e-commerce landscape, customer acquisition costs are rising, often costing 5-25 times more than retaining existing customers. "RetailCo Analytics" faces the challenge of identifying customers at risk of leaving (churning) to proactively engage them. By understanding customer behavior and purchase patterns, the company aims to optimize marketing spend and increase customer lifetime value (CLV).
 
 ## 2. Problem Definition
-
-Customer churn is defined as:
-
-**A customer who has not made a purchase in the last 90 days (3 months).**
-
-The business problem is to predict customer churn in advance so that proactive retention strategies can be applied before customers are lost.
-
----
+We define **Customer Churn** using a temporal split approach:
+- **Target Definition**: A customer is considered churned if they do not make any purchase in the **observation period (next 3 months)** after the training period.
+- **Goal**: Predict the probability of a customer churning in the next 3 months based on their historical transaction data.
 
 ## 3. Stakeholders
-
-- **Marketing Team**  
-  Needs customer segments and churn predictions to run targeted retention campaigns.
-
-- **Sales Team**  
-  Needs churn probability scores to prioritize high-risk customers.
-
-- **Product Team**  
-  Needs insights into purchasing patterns and product preferences.
-
-- **Executive Team**  
-  Needs churn metrics and ROI projections to guide strategic decisions.
-
----
+- **Marketing Team**: Needs to identify at-risk customers to target with retention campaigns and personalized offers.
+- **Sales Team**: Needs insights into high-value customers who might be churning to intervene personally.
+- **Product Team**: Can use insights to improve product offerings or user experience.
+- **Executive Team**: Interested in the overall ROI of the retention strategy and projected revenue impact.
 
 ## 4. Business Impact
-
-By accurately predicting customer churn, RetailCo Analytics expects:
-
-- A **15–20% reduction in customer churn rate**
-- Increase in overall revenue through improved customer retention
-- Cost savings by avoiding unnecessary marketing spend
-- Better personalization of marketing campaigns
-
----
+- **Primary Goal**: Reduce customer churn rate by 15-20% through targeted interventions.
+- **Revenue Impact**: Retaining high-value customers significantly boosts monthly revenue.
+- **Cost Savings**: More efficient allocation of marketing budget by focusing on customers most likely to be saved/churn.
 
 ## 5. Success Metrics
-
 ### Primary Metric
-- **ROC-AUC Score > 0.78**
+- **ROC-AUC Score > 0.75**: Ensures the model minimizes false positives and false negatives effectively across different thresholds.
 
 ### Secondary Metrics
-- **Precision > 0.75** (to minimize false positives)
-- **Recall > 0.70** (to correctly identify actual churners)
-- **F1-Score > 0.72**
-
-These metrics ensure the model aligns with business goals by balancing accuracy and practical usability.
+- **Precision > 0.70**: critical to minimize the cost of sending retention offers to customers who were not actually going to churn (False Positives).
+- **Recall > 0.65**: Critical to capture as many actual churners as possible (preventing False Negatives).
+- **F1-Score**: A balance between Precision and Recall.

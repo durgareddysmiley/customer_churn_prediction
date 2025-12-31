@@ -1,0 +1,33 @@
+Dataset Shape: (541910, 8)
+
+Column Info:
+Invoice         object
+StockCode       object
+Description     object
+Quantity         int64
+InvoiceDate     object
+Price          float64
+Customer ID    float64
+Country         object
+dtype: object
+
+Missing Values:
+Invoice             0
+StockCode           0
+Description      1454
+Quantity            0
+InvoiceDate         0
+Price               0
+Customer ID    135080
+Country             0
+dtype: int64
+
+First 5 Rows:
+  Invoice StockCode  ... Customer ID         Country
+0  536365    85123A  ...     17850.0  United Kingdom
+1  536365     71053  ...     17850.0  United Kingdom
+2  536365    84406B  ...     17850.0  United Kingdom
+3  536365    84029G  ...     17850.0  United Kingdom
+4  536365    84029E  ...     17850.0  United Kingdom
+
+[5 rows x 8 columns]

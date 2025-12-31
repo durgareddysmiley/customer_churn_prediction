@@ -1,15 +1,15 @@
 {
-    "original_rows": 525461,
-    "rows_after_cleaning": 342273,
-    "rows_removed": 183188,
+    "original_rows": 541910,
+    "rows_after_cleaning": 367077,
+    "rows_removed": 174833,
     "missing_values_before": {
         "InvoiceNo": 0,
         "StockCode": 0,
-        "Description": 2928,
+        "Description": 1454,
         "Quantity": 0,
         "InvoiceDate": 0,
-        "Price": 0,
-        "CustomerID": 107927,
+        "UnitPrice": 0,
+        "CustomerID": 135080,
         "Country": 0
     },
     "missing_values_after": {
@@ -18,7 +18,7 @@
         "Description": 0,
         "Quantity": 0,
         "InvoiceDate": 0,
-        "Price": 0,
+        "UnitPrice": 0,
         "CustomerID": 0,
         "Country": 0,
         "TotalPrice": 0,
@@ -30,11 +30,11 @@
     "steps_applied": [
         {
             "step": "remove_missing_customer_ids",
-            "rows_removed": 107927
+            "rows_removed": 135080
         },
         {
             "step": "handle_cancelled_invoices",
-            "rows_removed": 9839
+            "rows_removed": 8905
         },
         {
             "step": "handle_negative_quantities",
@@ -42,7 +42,7 @@
         },
         {
             "step": "handle_zero_prices",
-            "rows_removed": 31
+            "rows_removed": 40
         },
         {
             "step": "handle_missing_descriptions",
@@ -50,11 +50,25 @@
         },
         {
             "step": "remove_outliers",
-            "rows_removed": 59051
+            "rows_removed": 25647,
+            "method": "IQR_Quantity"
         },
         {
             "step": "remove_duplicates",
-            "rows_removed": 6340
+            "rows_removed": 5161
+        },
+        {
+            "step": "add_derived_columns",
+            "columns_added": [
+                "TotalPrice",
+                "Year",
+                "Month",
+                "DayOfWeek",
+                "Hour"
+            ]
+        },
+        {
+            "step": "convert_data_types"
         }
     ]
 }

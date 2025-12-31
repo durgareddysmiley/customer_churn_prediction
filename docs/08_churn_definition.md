@@ -1,85 +1,31 @@
 # Churn Definition
 
-## Problem Statement
-The objective of this project is to predict customer churn for an e-commerce business.
-Churn refers to customers who stop making purchases for a significant period of time.
-A clear, time-based churn definition is required to build a reliable supervised machine learning model.
+## 1. Problem Statement
+In a non-contractual setting like e-commerce, "churn" is not explicitly defined (unlike cancelling a subscription). We must infer churn based on a period of inactivity. We define a customer as **churned** if they stop purchasing for a specific observation period.
 
----
+## 2. Approach: Observation Window Method
+We use a **Temporal Split** to create a labeled dataset without data leakage.
 
-## Time-Based Approach
-A temporal observation window approach is used to define churn.
-This method prevents data leakage and reflects real-world customer purchasing behavior.
+### Time Windows
+- **Total Data Period**: 2010-12-01 to 2011-12-09
+- **Training Period (Features)**: Data **before** the cutoff date.
+- **Observation Period (Labels)**: Data **after** the cutoff date.
 
----
+### Cutoff Logic
+- **Cutoff Date**: `2011-09-09` (90 days before the last date in the dataset).
+- **Observation Window**: 90 Days (3 months).
 
-## Training and Observation Periods
+## 3. Churn Definition Rule
+- **Target Variable**: `Churn` (Binary: 1 or 0)
+- **Condition**:
+    - **Churn = 1**: Customer made a purchase in the *Training Period* but **NO** purchase in the *Observation Period*.
+    - **Churn = 0 (Active)**: Customer made a purchase in the *Training Period* **AND** made at least one purchase in the *Observation Period*.
 
-The dataset spans from **2009-12-01 to 2011-12-09**.
+## 4. Justification
+- **90 Days**: A standard quarter. E-commerce customers who haven't bought in 3 months are at significant risk of being lost.
+- **Leakage Prevention**: Features (like Recency) are calculated relative to the *Cutoff Date*, using only Training data. Future data (Observation period) is strictly reserved for generating the label.
 
-It is divided into two non-overlapping periods:
-
-### Training Period
-- Used to calculate customer-level features (RFM and behavioral features)
-- Only customers with at least one purchase in this period are considered
-
-### Observation Period (90 Days)
-- Used only to determine churn
-- Checks whether the customer made any purchase again
-
----
-
-## Churn Definition Logic
-
-Only customers who made **at least one purchase during the training period** are included in churn analysis.
-
-A customer is labeled as **Churned (1)** if:
-- The customer made at least one purchase in the training period, AND
-- The customer made **zero purchases** during the observation period (next 90 days)
-
-A customer is labeled as **Active (0)** if:
-- The customer made at least one purchase in the training period, AND
-- The customer made **at least one purchase** during the observation period
-
----
-
-## Implementation Logic (Conceptual)
-
-Customers are first filtered to those who purchased during the training period.
-Among them, customers who did not make any purchase during the observation period are labeled as churned.
-All remaining customers are labeled as active.
-
-This ensures churn is calculated only for previously active customers.
-
----
-
-## Expected Distribution
-
-Based on e-commerce industry standards:
-- Expected churn rate: **20–40%**
-- If churn rate is below 10% or above 60%, the churn logic should be reviewed
-
-In this project, the observed churn rate is approximately **33%**, which lies within the expected range.
-
----
-
-## Justification
-
-### Why a 3-Month Observation Window?
-- Industry standard for e-commerce churn analysis
-- Avoids very short windows that capture seasonal inactivity
-- Avoids very long windows that result in too few churned customers
-- Aligns with quarterly business planning cycles
-
----
-
-## Validation Criteria
-- Churn rate between 20–40%
-- No data leakage (features derived only from training period)
-- Clear temporal separation between training and observation periods
-
----
-
-## Conclusion
-This churn definition follows industry best practices, avoids data leakage, and aligns with real-world business behavior.
-It provides a reliable and interpretable target variable for churn prediction modeling.
+## 5. Expected Distribution
+- **Churn Rate**: We anticipate a churn rate between **20% and 40%**.
+- If the rate is too low (<10%), the window might be too short (everyone buys in 3 months).
+- If the rate is too high (>60%), the window might be too long or the business has a retention problem.

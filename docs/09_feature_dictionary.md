@@ -1,109 +1,38 @@
 # Feature Dictionary
 
-This document describes all customer-level features engineered for the churn prediction model, including their definitions, data types, ranges, and business meaning.
-
----
-
 ## Target Variable
-
-| Feature | Type | Description | Example | Business Meaning |
-|------|------|-----------|--------|------------------|
-| Churn | Binary | 1 = Churned, 0 = Active | 1 | Customer did not make any purchase in the next 3 months |
-
----
+| Feature | Type | Description | Values |
+| :--- | :--- | :--- | :--- |
+| **Churn** | Binary | 1 = Churned (No purchase in observation period), 0 = Active. | 0, 1 |
 
 ## RFM Features
-
-| Feature | Type | Description | Range | Business Meaning |
-|-------|------|------------|-------|------------------|
-| Recency | Integer | Days since last purchase (from training cutoff) | 0–600 | Lower value = customer purchased recently |
-| Frequency | Integer | Number of unique purchase invoices | 1–200+ | Higher value = more loyal customer |
-| TotalSpent | Float | Total money spent (£) | 0–50,000+ | Customer lifetime value |
-| AvgOrderValue | Float | Average spend per order (£) | 0–5,000 | Indicates spending behavior |
-| UniqueProducts | Integer | Number of unique products purchased | 1–1,000 | Higher = broader interest |
-| TotalItems | Integer | Total quantity purchased | 1–10,000+ | Measures buying volume |
-
----
-
-## Behavioral Features
-
 | Feature | Type | Description | Business Meaning |
-|-------|------|------------|------------------|
-| AvgDaysBetweenPurchases | Float | Average days between purchases | Lower = frequent shopper |
-| AvgBasketSize | Float | Average items per order | Larger baskets = bulk buyer |
-| StdBasketSize | Float | Variability in basket size | Indicates inconsistent buying |
-| MaxBasketSize | Integer | Maximum items bought in one order | Bulk purchase behavior |
-| PreferredDay | Integer | Most common shopping weekday (0=Mon) | Shopping habit |
-| PreferredHour | Integer | Most common shopping hour | Time preference |
-| CountryDiversity | Integer | Number of countries purchased from | Cross-border behavior |
+| :--- | :--- | :--- | :--- |
+| **Recency** | Integer | Days since last purchase relative to training cutoff. | Lower `Recency` indicates a more engaged customer. High recency is a strong churn signal. |
+| **Frequency** | Integer | Total number of unique invoices (purchases). | Higher `Frequency` indicates loyalty. |
+| **TotalSpent** | Float | Total monetary value (Sum of `TotalPrice`). | Customer Lifetime Value proxy. |
+| **AvgOrderValue** | Float | Average spend per transaction (`TotalSpent` / `Frequency`). | Indicates spending power per visit. |
+| **TotalItems** | Integer | Total quantity of items purchased. | Volume of purchases. |
+| **UniqueProducts**| Integer | Number of unique `StockCode`s bought. | Indicates product variety/exploration. |
 
----
+## Behavioral features
+| Feature | Type | Description | Business Meaning |
+| :--- | :--- | :--- | :--- |
+| **AvgDaysBetweenPurchases** | Float | Average number of days between consecutive purchases. | Regularity metric. High values indicate infrequent buying. |
+| **StdDaysBetweenPurchases** | Float | Standard deviation of purchase intervals. | Consistency metric. High variance means irregular behavior. |
+| **AvgBasketSize** | Float | Average quantity of items per invoice. | Size of typical cart. |
+| **MaxBasketSize** | Integer | Maximum quantity in a single invoice. | Peak purchasing event. |
 
 ## Temporal Features
-
 | Feature | Type | Description | Business Meaning |
-|-------|------|------------|------------------|
-| CustomerLifetimeDays | Integer | Days between first and last purchase | Longer = stronger relationship |
-| PurchaseVelocity | Float | Purchases per day | Buying intensity |
-| Purchases_Last30Days | Integer | Purchases in last 30 days | Recent engagement |
-| Purchases_Last60Days | Integer | Purchases in last 60 days | Medium-term activity |
-| Purchases_Last90Days | Integer | Purchases in last 90 days | Churn indicator |
+| :--- | :--- | :--- | :--- |
+| **CustomerLifetimeDays** | Integer | Days between first purchase and training cutoff. | Relationship duration ("Tenure"). |
 
----
-
-## Product Features
-
+## Segmentation
 | Feature | Type | Description | Business Meaning |
-|-------|------|------------|------------------|
-| ProductDiversityScore | Float | Unique products / total purchases | Variety-seeking behavior |
-| AvgPricePreference | Float | Average unit price preferred (£) | Price sensitivity |
-| StdPricePreference | Float | Price variation | Discount sensitivity |
-| MinPrice | Float | Minimum unit price purchased | Budget threshold |
-| MaxPrice | Float | Maximum unit price purchased | Premium affinity |
-
----
-
-## RFM Segmentation Features
-
-| Feature | Type | Description | Business Meaning |
-|-------|------|------------|------------------|
-| RecencyScore | Integer | Quartile-based recency score (1–4) | Higher = more recent |
-| FrequencyScore | Integer | Quartile-based frequency score | Higher = loyal |
-| MonetaryScore | Integer | Quartile-based spending score | Higher = high value |
-| RFM_Score | Integer | Sum of R, F, M scores | Overall customer value |
-
----
-
-## Feature Engineering Decisions
-
-### Why these features?
-- RFM features are industry-standard for customer behavior analysis
-- Behavioral features capture shopping patterns and habits
-- Temporal features detect engagement decline
-- Product features reveal preferences and sensitivity
-- Combined features improve churn prediction accuracy
-
----
-
-## Feature Interactions
-
-- High Recency + Low Purchases_Last30Days → Strong churn signal
-- High Frequency + High TotalSpent → Loyal customer
-- Low PurchaseVelocity + High Recency → At-risk customer
-
----
-
-## Feature Importance Hypothesis
-
-Based on business knowledge, the most important predictors of churn are expected to be:
-1. Recency (strongest predictor)
-2. Purchases_Last30Days
-3. Frequency
-4. PurchaseVelocity
-5. TotalSpent
-
----
-
-## Conclusion
-
-The engineered features comprehensively represent customer value, behavior, engagement, and preferences, providing a strong foundation for churn prediction modeling.
+| :--- | :--- | :--- | :--- |
+| **R_Score** | Integer | Quartile score for Recency (4=Best/Recent, 1=Worst/Old). | Segment component. |
+| **F_Score** | Integer | Quartile score for Frequency (4=Best/High, 1=Worst/Low). | Segment component. |
+| **M_Score** | Integer | Quartile score for Monetary (4=Best/High, 1=Worst/Low). | Segment component. |
+| **RFM_Score** | Integer | Sum of R, F, M scores (3 to 12). | Overall customer value score. |
+| **CustomerSegment** | String | Category based on RFM Score (Champions, Loyal, etc.). | interpretable customer bucket for marketing. |

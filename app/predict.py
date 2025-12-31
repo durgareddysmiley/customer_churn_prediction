@@ -2,74 +2,63 @@ import joblib
 import pandas as pd
 import numpy as np
 
-# Paths
-MODEL_PATH = "models/gradient_boosting.pkl"
-SCALER_PATH = "models/scaler.pkl"
-FEATURES_PATH = "data/processed/feature_names.json"
-
+MODEL_PATH = 'models/best_model.pkl'
+PREPROCESSOR_PATH = 'models/preprocessor.pkl' # This acts as our scaler/encoder
 
 def load_model():
-    """
-    Load trained churn prediction model
-    """
+    """Load the trained model and preprocessor"""
     try:
         model = joblib.load(MODEL_PATH)
-        return model
-    except Exception as e:
-        raise RuntimeError(f"Error loading model: {e}")
+        preprocessor = joblib.load(PREPROCESSOR_PATH)
+        return model, preprocessor
+    except FileNotFoundError:
+        return None, None
 
+def preprocess_input(data: dict, preprocessor):
+    """
+    Preprocess input dictionary to match training format
+    """
+    # specific columns expected by the model
+    # Recency, Frequency, TotalSpent, TotalItems, UniqueProducts, AvgOrderValue,
+    # AvgDaysBetweenPurchases, StdDaysBetweenPurchases, AvgBasketSize, MaxBasketSize,
+    # CustomerLifetimeDays, R_Score, F_Score, M_Score, RFM_Score, prev_date, DaysBetween ??
+    
+    # We need to construct a DataFrame with the exact columns used in training (X_train)
+    # Let's assume the user passes raw RFM values or we calculate scores on fly?
+    # For simplicity, the app usually asks for the features directly.
+    
+    df = pd.DataFrame([data])
+    
+    # Transform using the saved preprocessor pipeline
+    processed_array = preprocessor.transform(df)
+    
+    return processed_array
 
-def load_scaler():
-    """
-    Load feature scaler
-    """
+def make_prediction(input_data: dict):
+    model, preprocessor = load_model()
+    if not model or not preprocessor:
+        return {"error": "Model not loaded"}
+        
     try:
-        scaler = joblib.load(SCALER_PATH)
-        return scaler
+        processed_data = preprocess_input(input_data, preprocessor)
+        prediction = model.predict(processed_data)[0]
+        probability = model.predict_proba(processed_data)[0][1]
+        
+        return {
+            "prediction": int(prediction),
+            "probability": float(probability),
+            "status": "Churn" if prediction == 1 else "Active"
+        }
     except Exception as e:
-        raise RuntimeError(f"Error loading scaler: {e}")
+        return {"error": str(e)}
 
-
-def preprocess_input(data):
-    """
-    Preprocess input data (single or batch)
-    """
-    try:
-        # Convert single dict to DataFrame
-        if isinstance(data, dict):
-            df = pd.DataFrame([data])
-        elif isinstance(data, pd.DataFrame):
-            df = data.copy()
-        else:
-            raise ValueError("Input must be dict or DataFrame")
-
-        # Fill missing values safely
-        df = df.fillna(df.median(numeric_only=True))
-
-        scaler = load_scaler()
-        X_scaled = scaler.transform(df)
-
-        return X_scaled
-
-    except Exception as e:
-        raise RuntimeError(f"Error in preprocessing: {e}")
-
-
-def predict(data):
-    """
-    Return churn prediction (0 or 1)
-    """
-    model = load_model()
-    X = preprocess_input(data)
-    preds = model.predict(X)
-    return preds
-
-
-def predict_proba(data):
-    """
-    Return churn probability (0–1)
-    """
-    model = load_model()
-    X = preprocess_input(data)
-    probs = model.predict_proba(X)[:, 1]
-    return probs
+def batch_predict(df):
+    model, preprocessor = load_model()
+    if not model or not preprocessor:
+        return None
+        
+    processed_data = preprocessor.transform(df)
+    predictions = model.predict(processed_data)
+    probs = model.predict_proba(processed_data)[:, 1]
+    
+    return predictions, probs

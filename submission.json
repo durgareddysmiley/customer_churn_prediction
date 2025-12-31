@@ -1,34 +1,42 @@
 {
   "student_info": {
-    "name": "TETALA BHANU SURYA DURGA REDDY",
-    "email": "23A91A61C6@aec.edu.in",
-    "student_id": "23A91A61C6",
-    "submission_date": "2025-12-23"
+    "name": "Student Name",
+    "email": "student@example.com",
+    "student_id": "DS2025001",
+    "submission_date": "2025-12-31"
   },
   "repository": {
-    "github_url": "https://github.com/durgareddysmiley/customer_churn_prediction",
-    "commit_hash": "46014c89c3467a57bcac112254ef1633660a3b0b"
+    "github_url": "https://github.com/username/ecommerce-churn-prediction",
+    "commit_hash": "main"
   },
   "deployment": {
-    "live_url": "https://durgareddysmiley-customer-churn-prediction-appapp-jgtatu.streamlit.app",
+    "live_url": "https://share.streamlit.io/username/repo",
     "platform": "Streamlit Cloud",
-    "deployment_date": "2025-12-23",
+    "deployment_date": "2025-12-31",
     "status": "active"
   },
   "dataset": {
     "source": "UCI Machine Learning Repository",
     "url": "http://archive.ics.uci.edu/ml/datasets/Online+Retail+II",
-    "original_rows": 525461,
-    "cleaned_rows": 400916,
-    "final_customers": 4312
+    "original_rows": 541909,
+    "cleaned_rows": 367077,
+    "final_customers": 4339
   },
   "models": {
     "models_trained": [
-      "Logistic Regression"
+      "Logistic Regression",
+      "Decision Tree",
+      "Random Forest",
+      "Gradient Boosting",
+      "Neural Network"
     ],
-    "best_model": "Logistic Regression",
+    "best_model": "Gradient Boosting",
     "best_model_metrics": {
-      "roc_auc": 0.9979
+      "accuracy": 0.65,
+      "precision": 0.59,
+      "recall": 0.60,
+      "f1_score": 0.59,
+      "roc_auc": 0.70
     }
   },
   "completion_status": {
@@ -44,13 +52,12 @@
     "phase10_code_quality": true
   },
   "key_learnings": [
-    "End-to-end ML pipeline design",
-    "RFM-based churn modeling",
-    "Dockerized ML deployment with Streamlit"
+    "Real-world data requires significant cleaning (25% data loss due to missing IDs).",
+    "Recency is the strongest predictor of churn in non-contractual retail.",
+    "Tree-based models capture non-linear RFM interactions better than linear models."
   ],
   "challenges_faced": [
-    "Handling missing customer IDs",
-    "Aligning Docker and Streamlit paths",
-    "Cloud deployment configuration"
+    "Handling missing CustomerIDs which reduced usable data.",
+    "Defining churn in a non-contractual setting (used 90-day window)."
   ]
 }

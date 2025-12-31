@@ -1,5 +1,25 @@
 {
-    "total_customers": 3079,
-    "total_features": 29,
-    "churn_rate": 0.36765183501136733
+    "total_customers": 3275,
+    "total_features": 18,
+    "churn_rate": 0.42809160305343513,
+    "features": [
+        "CustomerID",
+        "Churn",
+        "Recency",
+        "Frequency",
+        "TotalSpent",
+        "TotalItems",
+        "UniqueProducts",
+        "AvgOrderValue",
+        "AvgDaysBetweenPurchases",
+        "StdDaysBetweenPurchases",
+        "AvgBasketSize",
+        "MaxBasketSize",
+        "CustomerLifetimeDays",
+        "R_Score",
+        "F_Score",
+        "M_Score",
+        "RFM_Score",
+        "CustomerSegment"
+    ]
 }

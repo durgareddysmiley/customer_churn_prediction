@@ -1,35 +1,25 @@
 # Technical Approach
 
-## Classification Approach
+## 1. Classification Approach
+We are framing this as a **binary classification problem** (Churn vs. Active).
+- **Why Classification?**: We need to make a distinct decision (Churn/No Churn) to trigger specific business actions. Probability outputs from classification models allow us to rank customers by risk.
 
-Customer churn prediction is treated as a **classification problem** rather than a regression problem because the business goal is to determine whether a customer will churn or not within the next 90 days.
+## 2. Feature Engineering Strategy
+Since the raw data is transactional (one row per item purchased), we must aggregate it to the customer level.
+- **RFM Analysis**: Core metrics defining customer value.
+- **Behavioral Features**: Inter-purchase time, basket size, return rate.
+- **Temporal Features**: Evolution of purchase behavior over time (e.g., trend in spend).
+- **One-Hot Encoding**: For categorical variables like customer segments.
 
-The output required by business stakeholders is a clear decision or probability of churn, which naturally fits a binary classification setup (churn = yes or no). Regression would not directly align with this decision-making requirement.
+## 3. Modeling Strategy
+We will implement and compare multiple algorithms to find the best balance of performance and interpretability:
+1.  **Logistic Regression**: Baseline model, highly interpretable.
+2.  **Decision Tree**: Captures non-linear relationships, easy to visualize.
+3.  **Random Forest**: Robust to overfitting, handles high dimensionality well.
+4.  **Gradient Boosting (XGBoost)**: Often state-of-the-art for tabular data, handles class imbalance well.
+5.  **Neural Network**: To capture complex, non-linear interactions.
 
----
-
-## Feature Engineering Strategy
-
-Transaction-level data is transformed into customer-level features using:
-- RFM (Recency, Frequency, Monetary) analysis
-- Behavioral patterns such as purchase frequency, basket size, and spending trends
-- Temporal features capturing customer activity over time
-
-These engineered features help capture customer behavior more effectively than raw transaction data.
-
----
-
-## Model Selection Strategy
-
-Multiple classification algorithms are tested to compare performance, including:
-- Logistic Regression
-- Tree-based models
-
-Different models capture different data patterns, and testing multiple algorithms helps identify the best-performing and most stable model for churn prediction.
-
----
-
-## Deployment Strategy Overview
-
-The final trained model is deployed using a Streamlit web application.  
-The application allows users to access churn predictions through a simple interface, and the solution is containerized using Docker to ensure reproducibility and consistent deployment across environments.
+## 4. Deployment Strategy
+- **Web App**: Built with Streamlit for ease of use by non-technical stakeholders.
+- **Model Serialization**: Models saved as `.pkl` files using `joblib`.
+- **Dockerization**: Containerized environment to ensure reproducibility.
