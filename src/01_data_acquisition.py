@@ -1,6 +1,6 @@
 import pandas as pd
-import requests
-import os
+import requests     ## This imports the requests library, which is used to communicate with websites and APIs over HTTP.
+import os       ## Python's built-in Operating System module -> Work with files and folders , -> Create directories
 from datetime import datetime
 import io
  
