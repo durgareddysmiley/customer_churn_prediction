@@ -18,7 +18,7 @@ def download_dataset():
     print(f"Starting download from {url}...")
     
     # Create directory structure
-    os.makedirs('data/raw', exist_ok=True)
+    os.makedirs('data/raw', exist_ok=True) ## to create one or more dictionary folders
     
     try:
         response = requests.get(url, timeout=60)
