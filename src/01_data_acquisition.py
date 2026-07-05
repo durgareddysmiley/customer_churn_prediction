@@ -3,13 +3,13 @@ import requests     ## This imports the requests library, which is used to commu
 import os       ## Python's built-in Operating System module -> Work with files and folders , -> Create directories
 from datetime import datetime   ## It lets you work with the current date and time. we can extract only year , only month specifically 
 import io  ## he io module is used to work with data as if it were a file, even when the data is stored in memory instead of on disk.sometimes you have data in memory (a string or bytes)
-           ## and want to treat it like a file. That's where io helps.
+           ## and want to treat it like a file. That's where io helps. 
  
 def download_dataset():
     """
     Download the Online Retail dataset
     Save to data/raw/online_retail.csv
-    """ 
+    """  
     
     # URL for the Online Retail II dataset (UCI ML Repository)
     # Using the direct link to the excel file
