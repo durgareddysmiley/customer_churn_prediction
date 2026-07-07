@@ -6,7 +6,7 @@ import io  ## he io module is used to work with data as if it were a file, even 
            ## and want to treat it like a file. That's where io helps. 
            ## WHEN WE DOWN LOAD DATA USING REQUESTS  PD CANT MAKE AS DATA FRAMES BECAUSE THAT IS NOT IN FILES SO IP HELPS TO CONVERT THE BYTES INTO TEMP FILE 
 def download_dataset(): 
-    """
+    """ 
     Download the Online Retail dataset  
     Save to data/raw/online_retail.csv
     """  
@@ -26,7 +26,7 @@ def download_dataset():
     try:
         response = requests.get(url, timeout=60)
         response.raise_for_status()
-        
+               
         print("Download complete. Converting to CSV...")
         
         # Read Excel file from memory
@@ -39,11 +39,13 @@ def download_dataset():
         # Standard "Online Retail" dataset (541909 rows) is usually the 2010-2011 data.
         
         with io.BytesIO(response.content) as fh:
-            df = pd.read_excel(fh, sheet_name="Year 2010-2011")
+            df = pd.read_excel(fh, sheet_name="Year 2010-2011")     # Only reads the data into memory, does NOT save anything
         
-        # Save as CSV
-        output_path = 'data/raw/online_retail.csv'
-        df.to_csv(output_path, index=False)
+        ## Location where the CSV file will be saved
+        output_path = 'data/raw/online_retail.csv' storing path 
+
+        # Convert the DataFrame into a CSV file and save it to the above location
+        df.to_csv(output_path, index=False) 
         
         print(f"Dataset downloaded: {datetime.now()}")
         print(f"Saved to: {output_path}")
