@@ -4,10 +4,10 @@ import os       ## Python's built-in Operating System module -> Work with files 
 from datetime import datetime   ## It lets you work with the current date and time. we can extract only year , only month specifically 
 import io  ## he io module is used to work with data as if it were a file, even when the data is stored in memory instead of on disk.sometimes you have data in memory (a string or bytes)
            ## and want to treat it like a file. That's where io helps. 
- 
+           ## WHEN WE DOWN LOAD DATA USING REQUESTS  PD CANT MAKE AS DATA FRAMES BECAUSE THAT IS NOT IN FILES SO IP HELPS TO CONVERT THE BYTES INTO TEMP FILE 
 def download_dataset(): 
     """
-    Download the Online Retail dataset
+    Download the Online Retail dataset 
     Save to data/raw/online_retail.csv
     """  
     
