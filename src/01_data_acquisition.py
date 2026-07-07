@@ -11,7 +11,7 @@ def download_dataset():
     Save to data/raw/online_retail.csv
     """  
     
-    # URL for the Online Retail II dataset (UCI ML Repository)
+    # URL for the Online Retail II dataset (UCI ML Repository) 
     # Using the direct link to the excel file
     url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00502/online_retail_II.xlsx"
     
@@ -19,7 +19,10 @@ def download_dataset():
     
     # Create directory structure
     os.makedirs('data/raw', exist_ok=True) ## to create one or more dictionary folders
-    
+
+    ## "This code downloads the Online Retail dataset from the UCI website using requests.get(). It checks whether the download was successful using raise_for_status(). Since the downloaded file is in memory as bytes,
+        io.BytesIO() converts it into a temporary file that pandas can read. The Excel sheet is then loaded into a DataFrame, converted to CSV, and saved in the data/raw folder. Finally, the program prints the download time, save location,
+        and number of rows. If any step fails, the exception block handles the error and returns False."
     try:
         response = requests.get(url, timeout=60)
         response.raise_for_status()
