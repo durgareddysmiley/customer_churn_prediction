@@ -6,7 +6,7 @@ import io  ## he io module is used to work with data as if it were a file, even 
            ## and want to treat it like a file. That's where io helps. 
            ## WHEN WE DOWN LOAD DATA USING REQUESTS  PD CANT MAKE AS DATA FRAMES BECAUSE THAT IS NOT IN FILES SO IP HELPS TO CONVERT THE BYTES INTO TEMP FILE 
 def download_dataset(): 
-    """ 
+    """   
     Download the Online Retail dataset  
     Save to data/raw/online_retail.csv
     """  
@@ -18,11 +18,11 @@ def download_dataset():
     print(f"Starting download from {url}...")
     
     # Create directory structure
-    os.makedirs('data/raw', exist_ok=True) ## to create one or more dictionary folders
+    os.makedirs('data/raw', exist_ok=True) ## to create one or more dictionary folders , os.makedirs() -> creates one or more directories in the specified path.
 
     ## "This code downloads the Online Retail dataset from the UCI website using requests.get(). It checks whether the download was successful using raise_for_status(). Since the downloaded file is in memory as bytes,
-        io.BytesIO() converts it into a temporary file that pandas can read. The Excel sheet is then loaded into a DataFrame, converted to CSV, and saved in the data/raw folder. Finally, the program prints the download time, save location,
-        and number of rows. If any step fails, the exception block handles the error and returns False."
+    ## io.BytesIO() converts it into a temporary file that pandas can read. The Excel sheet is then loaded into a DataFrame, converted to CSV, and saved in the data/raw folder. Finally, the program prints the download time, save location,
+    ## and number of rows. If any step fails, the exception block handles the error and returns False."
     try:
         response = requests.get(url, timeout=60)
         response.raise_for_status()
@@ -42,9 +42,10 @@ def download_dataset():
             df = pd.read_excel(fh, sheet_name="Year 2010-2011")     # Only reads the data into memory, does NOT save anything
         
         ## Location where the CSV file will be saved
-        output_path = 'data/raw/online_retail.csv' storing path 
+        output_path = 'data/raw/online_retail.csv'           # storing path 
 
         # Convert the DataFrame into a CSV file and save it to the above location
+        
         df.to_csv(output_path, index=False) 
         
         print(f"Dataset downloaded: {datetime.now()}")
