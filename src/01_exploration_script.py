@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
-import json
+import json  ## Used to save python dictionaries as JSON files 
 import os
-
+ 
 def run_exploration():
     print("Loading data for exploration...")
     if not os.path.exists('data/raw/online_retail.csv'):
@@ -35,8 +35,7 @@ def run_exploration():
         'negative_quantities': int((df['Quantity'] < 0).sum()),
         'cancelled_invoices': int(df['InvoiceNo'].astype(str).str.startswith('C').sum()),
         'missing_customer_ids': int(df['CustomerID'].isnull().sum()),
-        'missing_customer_ids_percentage': float(df['CustomerID'].isnull().mean() * 100)
-    }
+        'missing_customer_ids_percentage': float(df['CustomerID'].isnull().mean() * 100) }
     
     # Save to JSON
     output_path = 'data/raw/data_quality_summary.json'
