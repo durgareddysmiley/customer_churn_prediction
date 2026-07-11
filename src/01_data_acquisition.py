@@ -1,6 +1,6 @@
 import pandas as pd  ## What is Pandas? Pandas is a Python library used to work with data. It helps you: -> Read CSV files -> Read Excel files
 import requests     ## This imports the requests library, which is used to communicate with websites and APIs over HTTP.
-import os       ## Python's built-in Operating System module -> Work with files and folders , -> Create directories
+import os       ## Python's built-in Operating System module -> Work with files and folders , -> Create directories 
 from datetime import datetime   ## It lets you work with the current date and time. we can extract only year , only month specifically 
 import io  ## he io module is used to work with data as if it were a file, even when the data is stored in memory instead of on disk.sometimes you have data in memory (a string or bytes)
            ## and want to treat it like a file. That's where io helps. 
