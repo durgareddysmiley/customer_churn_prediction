@@ -8,7 +8,7 @@ import io  ## he io module is used to work with data as if it were a file, even 
 def download_dataset(): 
     """   
     Download the Online Retail dataset  
-    Save to data/raw/online_retail.csv
+    Save to data/raw/online_retail.csv 
     """  
      
     # URL for the Online Retail II dataset (UCI ML Repository) 
@@ -45,7 +45,9 @@ def download_dataset():
         output_path = 'data/raw/online_retail.csv'           # storing path 
 
         # Convert the DataFrame into a CSV file and save it to the above location
-        
+
+         # Convert the DataFrame df into a CSV file and save that CSV file at the location specified by output_path.
+
         df.to_csv(output_path, index=False) 
         
         print(f"Dataset downloaded: {datetime.now()}")
