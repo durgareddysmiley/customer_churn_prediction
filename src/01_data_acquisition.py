@@ -89,7 +89,8 @@ def generate_data_profile():
     profile.append(str(df.isnull().sum()))
     profile.append("\nFirst 5 Rows:")
     profile.append(str(df.head()))
-    
+
+    ## open('data/raw/data_profile.txt', 'w') as f.. Here f means file object it creates when it is not preseent or over writes when it is present 
     with open('data/raw/data_profile.txt', 'w') as f:
         f.write('\n'.join(profile))
         
