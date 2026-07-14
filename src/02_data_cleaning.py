@@ -7,7 +7,7 @@ import os
 
 # Setup logging
 os.makedirs('logs', exist_ok=True)
-logging.basicConfig(
+logging.basicConfig( 
     filename='logs/data_cleaning.log', 
     level=logging.INFO,  ## Logging has different levels. info means it will take only warning , info , error not  nay debug even if we write 
     format='%(asctime)s - %(levelname)s - %(message)s' ## shows the current date and time and level name and message this is the structure 
@@ -65,7 +65,7 @@ class DataCleaner:
         logging.info("Step 1: Removing missing CustomerIDs...")
         initial_rows = len(self.df)
         
-        self.df = self.df.dropna(subset=['CustomerID'])
+        self.df = self.df.dropna(subset=['CustomerID'])  ## REMOVE THE ENTIRE ROW WHERE THE CUSTOMER ID HAS NAN
         
         rows_removed = initial_rows - len(self.df)
         logging.info(f"Removed {rows_removed} rows with missing CustomerID")
