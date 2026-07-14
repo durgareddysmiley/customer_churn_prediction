@@ -2,15 +2,15 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import json
-import logging
+import logging ## The logging module is used to record information about what your program is doing
 import os
 
 # Setup logging
 os.makedirs('logs', exist_ok=True)
 logging.basicConfig(
     filename='logs/data_cleaning.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO,  ## Logging has different levels. info means it will take only warning , info , error not  nay debug even if we write 
+    format='%(asctime)s - %(levelname)s - %(message)s' ## shows the current date and time and level name and message this is the structure 
 )
 
 class DataCleaner:
