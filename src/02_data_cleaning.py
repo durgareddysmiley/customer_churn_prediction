@@ -8,7 +8,7 @@ import os
 # Setup logging
 os.makedirs('logs', exist_ok=True)
 logging.basicConfig(
-    filename='logs/data_cleaning.log',
+    filename='logs/data_cleaning.log', 
     level=logging.INFO,  ## Logging has different levels. info means it will take only warning , info , error not  nay debug even if we write 
     format='%(asctime)s - %(levelname)s - %(message)s' ## shows the current date and time and level name and message this is the structure 
 )
@@ -38,7 +38,7 @@ class DataCleaner:
             self.df = pd.read_csv(
                 self.input_path,
                 encoding='latin1',  # Commonly needed for this dataset
-                parse_dates=['InvoiceDate']
+                parse_dates=['InvoiceDate'] ## parse_dates is parameter it converts date strings from the CSV into datetime objects.
             )
             # Normalize column names just in case
             self.df.columns = [c.strip() for c in self.df.columns]
