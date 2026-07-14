@@ -6,7 +6,7 @@ import os
 def run_exploration():
     print("Loading data for exploration...")
     if not os.path.exists('data/raw/online_retail.csv'):
-        print("Data file not found!")
+        print("Data file not found!") 
         return
 
     # Load with low_memory=False to avoid dtypes warning
