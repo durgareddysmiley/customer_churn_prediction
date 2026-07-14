@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import json  ## Used to save python dictionaries as JSON files 
 import os
- 
+  
 def run_exploration():
     print("Loading data for exploration...")
     if not os.path.exists('data/raw/online_retail.csv'):
@@ -43,7 +43,8 @@ def run_exploration():
         json.dump(data_quality_summary, f, indent=4, default=str)
         
     print(f"Data quality summary saved to {output_path}")
-    print(json.dumps(data_quality_summary, indent=2))
+    print(json.dumps(data_quality_summary, indent=2)) ## json.dumps() converts a Python object into a JSON-formatted string and returns it.
+                                                      ## It does not save anything to a file by itself.
 
 if __name__ == "__main__":
     run_exploration()
