@@ -11,7 +11,7 @@ logging.basicConfig(
     filename='logs/data_cleaning.log', 
     level=logging.INFO,  ## Logging has different levels. info means it will take only warning , info , error not  nay debug even if we write 
     format='%(asctime)s - %(levelname)s - %(message)s' ## shows the current date and time and level name and message this is the structure 
-)
+) 
 
 class DataCleaner:
     """
