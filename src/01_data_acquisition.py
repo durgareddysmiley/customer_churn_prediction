@@ -6,8 +6,8 @@ import io  ## he io module is used to work with data as if it were a file, even 
            ## and want to treat it like a file. That's where io helps. 
            ## WHEN WE DOWN LOAD DATA USING REQUESTS  PD CANT MAKE AS DATA FRAMES BECAUSE THAT IS NOT IN FILES SO IP HELPS TO CONVERT THE BYTES INTO TEMP FILE 
 def download_dataset(): 
-    """   
-    Download the Online Retail dataset  
+    """    
+    Download the Online Retail dataset     
     Save to data/raw/online_retail.csv 
     """  
      
