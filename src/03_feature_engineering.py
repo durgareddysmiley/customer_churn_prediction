@@ -84,9 +84,9 @@ class FeatureEngineer:
         # Recency: Days since last purchase (relative to CUTOFF, not today)
         # We compute max date per customer, then subtract from cutoff
         rfm = self.train_df.groupby('CustomerID').agg({
-            'InvoiceDate': lambda x: (self.training_cutoff - x.max()).days,
+            'InvoiceDate': lambda x: (self.training_cutoff - x.max()).days, ## Customer last day was 44 with out cutoff 
             'InvoiceNo': 'nunique',
-            'TotalPrice': 'sum',
+            'TotalPrice': 'sum', 
             'Quantity': 'sum',
             'StockCode': 'nunique'
         }).reset_index()
