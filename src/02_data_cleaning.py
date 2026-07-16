@@ -8,7 +8,7 @@ import os
 # Setup logging                   
 os.makedirs('logs', exist_ok=True)
 logging.basicConfig( 
-    filename='logs/data_cleaning.log', 
+    filename='logs/data_cleaning.log',  
     level=logging.INFO,  ## Logging has different levels. info means it will take only warning , info , error not  nay debug even if we write 
     format='%(asctime)s - %(levelname)s - %(message)s' ## shows the current date and time and level name and message this is the structure 
 ) 
@@ -208,7 +208,7 @@ class DataCleaner:
         """Step 9: Convert data types"""
         logging.info("Step 9: Converting data types...")
         
-        self.df['CustomerID'] = self.df['CustomerID'].astype(int)
+        self.df['CustomerID'] = self.df['CustomerID'].astype(int)  ## astype() means: the data type of a column into another data type.
         self.df['Country'] = self.df['Country'].astype('category')
         
         logging.info("Data type conversions completed")
