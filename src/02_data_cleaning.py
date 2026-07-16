@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+import numpy as np 
 from datetime import datetime
 import json
 import logging ## The logging module is used to record information about what your program is doing
@@ -18,11 +18,13 @@ class DataCleaner:
     Comprehensive data cleaning pipeline for Online Retail dataset
     """
     
-    def __init__(self, input_path='data/raw/online_retail.csv'):
+    def __init__(self, input_path='data/raw/online_retail.csv'): ## __init__  It is a special function called a constructor. 
+                                                                 ## It is automatically called when you create an object.
+
         """Initialize with raw data path"""
-        self.input_path = input_path
+        self.input_path = input_path 
         self.df = None
-        self.cleaning_stats = {
+        self.cleaning_stats = {  ## This creates a dictionary. Think of it as a notebook where you record everything that happens during cleaning.
             'original_rows': 0,
             'rows_after_cleaning': 0,
             'rows_removed': 0,
