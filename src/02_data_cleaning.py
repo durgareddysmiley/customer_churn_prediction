@@ -5,7 +5,7 @@ import json
 import logging ## The logging module is used to record information about what your program is doing
 import os
 
-# Setup logging
+# Setup logging                   
 os.makedirs('logs', exist_ok=True)
 logging.basicConfig( 
     filename='logs/data_cleaning.log', 
@@ -84,7 +84,7 @@ class DataCleaner:
         
         # Ensure InvoiceNo is string
         self.df['InvoiceNo'] = self.df['InvoiceNo'].astype(str)
-        self.df = self.df[~self.df['InvoiceNo'].str.contains('C', na=False)]
+        self.df = self.df[~self.df['InvoiceNo'].str.contains('C', na=False)]  ## This is a Pandas filtering operation. It removes all rows where the InvoiceNo contains the letter 'C'.
         
         rows_removed = initial_rows - len(self.df)
         logging.info(f"Removed {rows_removed} cancelled invoices")
