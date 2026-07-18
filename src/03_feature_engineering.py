@@ -12,7 +12,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-class FeatureEngineer:
+class FeatureEngineer: 
     """
     Transform transaction data into customer-level features
     """
