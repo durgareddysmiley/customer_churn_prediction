@@ -7,7 +7,7 @@ import os
 
 # Setup logging
 logging.basicConfig(
-    filename='logs/feature_engineering.log',
+    filename='logs/feature_engineering.log', 
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
@@ -30,9 +30,9 @@ class FeatureEngineer:
         self.customer_features = None
         
     def load_data(self):
-        logging.info("Loading transactions...")
-        self.transactions = pd.read_csv(self.transactions_path)
-        self.transactions['InvoiceDate'] = pd.to_datetime(self.transactions['InvoiceDate'])
+        logging.info("Loading transactions...")                       
+        self.transactions = pd.read_csv(self.transactions_path)                             
+        self.transactions['InvoiceDate'] = pd.to_datetime(self.transactions['InvoiceDate'])       
         self.observation_end = self.transactions['InvoiceDate'].max()
         
         logging.info(f"Training Cutoff: {self.training_cutoff}")
