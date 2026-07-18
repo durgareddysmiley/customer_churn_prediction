@@ -237,7 +237,7 @@ class DataCleaner:
         
         print(f"Original rows: {self.cleaning_stats['original_rows']}")
         print(f"Cleaned rows: {self.cleaning_stats['rows_after_cleaning']}")
-        print(f"Retention rate: {(self.cleaning_stats['rows_after_cleaning']/self.cleaning_stats['original_rows']*100):.2f}%")
+        print(f"Retention rate: {(self.cleaning_stats['rows_after_cleaning']/self.cleaning_stats['original_rows']*100):.2f}%") // How much original data is present 
         
         return self
     
