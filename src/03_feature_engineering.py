@@ -10,7 +10,7 @@ logging.basicConfig(
     filename='logs/feature_engineering.log', 
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
-)
+) 
 
 class FeatureEngineer: 
     """
@@ -108,7 +108,7 @@ class FeatureEngineer:
         df_sorted = self.train_df.sort_values(['CustomerID', 'InvoiceDate'])
         
         # Calculate diff between dates for each customer
-        df_sorted['PrevDate'] = df_sorted.groupby('CustomerID')['InvoiceDate'].shift(1)
+        df_sorted['PrevDate'] = df_sorted.groupby('CustomerID')['InvoiceDate'].shift(1) //  THE DIFFERENCE BETWEEN 2 DATES
         df_sorted['DaysBetween'] = (df_sorted['InvoiceDate'] - df_sorted['PrevDate']).dt.days
         
         behavior = df_sorted.groupby('CustomerID').agg({
@@ -136,6 +136,11 @@ class FeatureEngineer:
         self.customer_features = pd.merge(self.customer_features, lifetime[['CustomerID', 'CustomerLifetimeDays']], on='CustomerID', how='left')
         
         return self
+    ## What is RFM?
+    ## RFM stands for:
+    ## R (Recency) → How recently did the customer purchase?
+    ## F (Frequency) → How many times did the customer purchase?
+    ## M (Monetary) → How much money did the customer spend?
 
     def create_segmentation(self):
         """Create RFM Segments"""
@@ -145,7 +150,8 @@ class FeatureEngineer:
         
         # Scoring (1-4, 4 is best)
         # Recency: Lower is better (so reverse labels)
-        df['R_Score'] = pd.qcut(df['Recency'], 4, labels=[4, 3, 2, 1])
+        df['R_Score'] = pd.qcut(df['Recency'], 4, labels=[4, 3, 2, 1])  ## qcut is making as groups for suppose there ae valeus liek  1 ,2,3,4,5,6 now 1,2 is a group another group is 5,6 like that 
+        ## if there are 4 values like 10,20,30,40 smallest are 10,20 so it makes it as single group 30,40 makes as another group so we can eaily find 
         # Frequency: Higher is better
         # Use rank(method='first') to handle ties if needed, but qcut usually works okay unless many 1s.
         # Since Frequency has many low values (1, 2), qcut might fail with duplicate edges.
