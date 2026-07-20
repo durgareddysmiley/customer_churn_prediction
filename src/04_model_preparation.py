@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import joblib
-import json
+import json ## JSON IS TO STORE OR EXCHANGE THE DATA 
 import os
 
 def prepare_data():
