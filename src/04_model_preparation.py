@@ -1,7 +1,7 @@
  import pandas as pd 
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, OneHotEncoder 
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import joblib
@@ -22,9 +22,10 @@ def prepare_data():
     y = df['Churn']
     
     # 2. Identify Column Types
-    numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
+    numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()  ## gives column names which are in float or integer
     categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()
-    
+## y we are doing n, and cg because later we do operations like  Standard scalar which want only object or category for this we are doing this  
+ 
     print(f"Numeric features: {len(numeric_features)}")
     print(f"Categorical features: {len(categorical_features)}")
     
@@ -33,8 +34,9 @@ def prepare_data():
     X_train, X_temp, y_train, y_temp = train_test_split(
         X, y, test_size=0.3, stratify=y, random_state=42
     )
-    X_val, X_test, y_val, y_test = train_test_split(
-        X_temp, y_temp, test_size=0.5, stratify=y_temp, random_state=42
+    X_val, X_test, y_val, y_test = train_test_split(  ## for validation(tuning the module) and test  x_temp = 300 from the above code.. now validation 150 and 
+                                                      ## text(final evaluation) 150
+         X_temp, y_temp, test_size=0.5, stratify=y_temp, random_state=42
     )
     
     # 4. Create Preprocessing Pipeline
