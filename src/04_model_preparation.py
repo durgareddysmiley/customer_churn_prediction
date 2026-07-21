@@ -4,7 +4,9 @@ from sklearn.model_selection import train_test_split ## from says only extract l
                                                      ## into different parts (training, validation, or test) before building a model.
 from sklearn.preprocessing import StandardScaler, OneHotEncoder ## StandardScaler → Used for numerical columns. 
                                                                 ## OneHotEncoder → Used for categorical (text) columns.
-from sklearn.compose import ColumnTransformer
+from sklearn.compose import ColumnTransformer ## Without ColumnTransformer, you would have to preprocess numeric and categorical
+    ## columns separately and then manually combine them.With ColumnTransformer, all preprocessing
+    ## is done in one step, making your ML pipeline cleaner and reducing mistakes.
 from sklearn.pipeline import Pipeline
 import joblib 
 import json ## JSON IS TO STORE OR EXCHANGE THE DATA 
