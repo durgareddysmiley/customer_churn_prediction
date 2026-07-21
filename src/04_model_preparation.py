@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder 
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-import joblib
+import joblib 
 import json ## JSON IS TO STORE OR EXCHANGE THE DATA 
 import os
 
@@ -32,8 +32,27 @@ def prepare_data():
     # 3. Split Data (Stratified to maintain churn ratio)
     # 70% Train, 15% Val, 15% Test
     X_train, X_temp, y_train, y_temp = train_test_split(
-        X, y, test_size=0.3, stratify=y, random_state=42
+        X, y, test_size=0.3, stratify=y, random_state=42 ## t data = 30%
     )
+## Total Data = 1000 rows
+
+## Step 1:
+## Training Data = 70% = 700 rows
+
+## Temporary Data (X_temp) = 30% = 300 rows
+## This is NOT the test data.
+## It is a temporary dataset that will be split again.
+
+## Step 2:
+## X_temp (300 rows) is divided into:
+
+## Validation Data = 150 rows (15%)
+## Used for tuning the model (choosing the best hyperparameters or model).
+
+## Test Data = 150 rows (15%)
+## Used only for the final evaluation after the model has been completely trained and tuned.
+
+ 
     X_val, X_test, y_val, y_test = train_test_split(  ## for validation(tuning the module) and test  x_temp = 300 from the above code.. now validation 150 and 
                                                       ## text(final evaluation) 150
          X_temp, y_temp, test_size=0.5, stratify=y_temp, random_state=42
@@ -41,14 +60,18 @@ def prepare_data():
     
     # 4. Create Preprocessing Pipeline
     # Numeric: Scale
-    # Categorical: One-Hot Encode
+    # Categorical: One-Hot Encode  ## ONEHOT ENCODER MEANS CONVERT TEXT TO NUMBERS
     
     preprocessor = ColumnTransformer(
         transformers=[
-            ('num', StandardScaler(), numeric_features),
-            ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=False), categorical_features)
+            ('num', StandardScaler(), numeric_features), 
+            ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=False), categorical_features) ## handle_unknown='ignore'
+                                                                                                       ## Python simply ignores the unknown category instead of crashing.
         ],
-        verbose_feature_names_out=False
+     ## sparse matrix means having zeros there is a matrix like [1,0,0] it will not store because insteading of storing all zeros now sparse_output = False we write like 
+     ## that then it will sores only ones like (0,0) = 1 thats it 
+        verbose_feature_names_out=False  ## suppose Python creates column names like  = cat__Gender_Male , cat__Gender_Female ,Notice the extra = cat__
+                                         ## With verbose_feature_names_out=False , You simply get  Gender_Male , Gender_Female
     )
     
     # Fit on training data ONLY
