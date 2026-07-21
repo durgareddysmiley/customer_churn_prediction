@@ -75,7 +75,8 @@ def prepare_data():
     )
     
     # Fit on training data ONLY
-    X_train_processed = preprocessor.fit_transform(X_train)
+    ##  the below code consists of Learn from the training data only, then apply the same learning to the validation and test data.
+    X_train_processed = preprocessor.fit_transform(X_train) 
     
     # Transform Val and Test
     X_val_processed = preprocessor.transform(X_val)
