@@ -1,7 +1,9 @@
- import pandas as pd 
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder 
+ import pandas as pd ## pandas is used to work with files used to make rows and columns into data frame 
+import numpy as np ## numpy is used to do mathematical calculations faster than lists 
+from sklearn.model_selection import train_test_split ## from says only extract limited methods..To divide your dataset 
+                                                     ## into different parts (training, validation, or test) before building a model.
+from sklearn.preprocessing import StandardScaler, OneHotEncoder ## StandardScaler → Used for numerical columns. 
+                                                                ## OneHotEncoder → Used for categorical (text) columns.
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import joblib 
