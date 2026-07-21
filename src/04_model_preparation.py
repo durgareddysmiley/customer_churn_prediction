@@ -1,4 +1,4 @@
-import pandas as pd 
+ import pandas as pd 
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -16,7 +16,8 @@ def prepare_data():
     
     # 1. Define Features (X) and Target (y)
     # Drop non-feature columns
-    drop_cols = ['CustomerID', 'Churn']
+    drop_cols = ['CustomerID', 'Churn'] ## So CustomerID is removed because it is just an identifier, and Churn is removed from X because it is the answer the
+                                        ## model is trying to learn to predict.
     X = df.drop(columns=drop_cols)
     y = df['Churn']
     
