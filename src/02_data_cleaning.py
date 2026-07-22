@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime
 import json
 import logging ## The logging module is used to record information about what your program is doing
-import os
+import os 
 
 # Setup logging                   
 os.makedirs('logs', exist_ok=True)
