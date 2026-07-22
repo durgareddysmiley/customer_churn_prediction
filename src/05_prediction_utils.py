@@ -1,6 +1,20 @@
 import pandas as pd
 import joblib ## it is mainly used to save trained models so you don't have to train them every time.
 
+## Without Joblib:
+
+## Train the model.
+## Close Python.
+## Next time, train the model again.
+## This wastes time.
+
+## With Joblib:
+
+## Train the model once.
+## Save it using Joblib.
+## Next time, simply load the saved model.
+## No retraining is needed.
+
 
 MODEL_PATH = "models/gradient_boosting.pkl"
 SCALER_PATH = "models/scaler.pkl"
