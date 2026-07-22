@@ -1,5 +1,5 @@
 import pandas as pd
-import joblib
+import joblib ## it is mainly used to save trained models so you don't have to train them every time.
 
 
 MODEL_PATH = "models/gradient_boosting.pkl"
