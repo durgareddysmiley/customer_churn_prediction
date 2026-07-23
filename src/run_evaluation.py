@@ -16,8 +16,8 @@ def evaluate_model():
     model = joblib.load('models/best_model.pkl')
     
     # Predict
-    y_pred = model.predict(X_test)
-    y_prob = model.predict_proba(X_test)[:, 1]
+    y_pred = model.predict(X_test) ## it will say just churn or not 
+    y_prob = model.predict_proba(X_test)[:, 1] ## it will say how much confident the model is like 98% churn , 2 % active 
     
     # Metrics
     metrics = {
