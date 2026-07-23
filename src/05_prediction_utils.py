@@ -1,5 +1,5 @@
 import pandas as pd
-import joblib ## it is mainly used to save trained models so you don't have to train them every time.
+import joblib ## it is mainly used to save trained models so you don't have to train them every time. 
 
 ## Without Joblib:
 
