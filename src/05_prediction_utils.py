@@ -27,7 +27,7 @@ def load_model():
     Returns:
         tuple: Trained model and fitted scaler
     """
-    model = joblib.load(MODEL_PATH)
+    model = joblib.load(MODEL_PATH)         ## joblib.load() reads a previously saved object from a file.
     scaler = joblib.load(SCALER_PATH)
     return model, scaler
 
