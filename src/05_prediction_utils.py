@@ -5,7 +5,7 @@ import joblib ## it is mainly used to save trained models so you don't have to t
 
 ## Train the model.
 ## Close Python.
-## Next time, train the model again.
+## Next time, train the model again.   
 ## This wastes time.
 
 ## With Joblib:
@@ -59,9 +59,33 @@ def predict_churn(input_df):
             np.ndarray: Churn probabilities
     """
     model, scaler = load_model()
+
+    ## Earlier you saved 
+    ## model.pkl
+    ## scaler.pkl Now they are loaded into memory.
     X_scaled = preprocess_input(input_df, scaler)
 
     churn_prob = model.predict_proba(X_scaled)[:, 1]
+    
+    ## Suppose the model internally predicts
+    ## model.predict_proba(X_scaled)
+     ## [[0.25, 0.75]]
+    ## This means:
+    ## 0.25 (25%) → Probability the customer is Active (Class 0).
+     ## 0.75 (75%) → Probability the customer will Churn (Class 1).
+    ## Notice that the two probabilities always add up to 100%.
+    ## 25% + 75% = 100%
+
+    ## [:, 1]
+     +## means:
+     ## : → Select all rows
+     ## 1 → Select only column 1 (the second column)
     churn_pred = (churn_prob >= 0.5).astype(int)
+    ## So,
+    ## .astype(int)
+     ## converts them.
+    ## Before	After
+      False	     0
+      True	      1
 
     return churn_pred, churn_prob
