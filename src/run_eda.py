@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import os
+import matplotlib.pyplot as plt ## matplotlib is a Python library used to create graphs and charts
+                                ## pyplot is the part of matplotlib that contains functions for plotting.
+import seaborn as sns  ## Seaborn is a library built on top of Matplotlib.
+                        ## It makes charts look more attractive and provides many statistical plots with less code.
+import os 
 from scipy import stats
 
 def run_eda():
