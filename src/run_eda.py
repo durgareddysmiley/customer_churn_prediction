@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt ## matplotlib is a Python library used to create
 import seaborn as sns  ## Seaborn is a library built on top of Matplotlib.
                         ## It makes charts look more attractive and provides many statistical plots with less code.
 import os 
-from scipy import stats
+from scipy import stats ## scipy stands for Scientific Python.
+                        ## It is a library that provides many mathematical and scientific functions.
 
 def run_eda():
     print("Running EDA...")
