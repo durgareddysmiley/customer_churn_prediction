@@ -37,12 +37,14 @@ def download_dataset():
         # Metric check: 541,909 rows matches the 2010-2011 dataset usually found in "Online Retail.xlsx".
         # Let's try to load both and see, or just load the one that matches the expected count.
         # Standard "Online Retail" dataset (541909 rows) is usually the 2010-2011 data.
-        
+
+        ## The with statement creates the temporary file and automatically closes it when you're done.
         with io.BytesIO(response.content) as fh:
             df = pd.read_excel(fh, sheet_name="Year 2010-2011")     # Only reads the data into memory, does NOT save anything
-        
+        ## "This line is used to read an Excel file directly from the internet without saving it to my computer. response.content contains the downloaded Excel file as binary data (bytes). io.BytesIO() converts those bytes into a temporary file-like object in memory. 
+        ## Then pd.read_excel() reads the 'Year 2010-2011' sheet from that temporary file and loads it into a Pandas DataFrame."
         ## Location where the CSV file will be saved
-        output_path = 'data/raw/online_retail.csv'           # storing path 
+        output_path = 'data/raw/online_retail.csv'           # storing path  
 
         # Convert the DataFrame into a CSV file and save it to the above location
 
