@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta 
-import json
+import json 
 import logging
 import os
 
@@ -45,7 +45,16 @@ class FeatureEngineer:
         
         # Training Data: Transactions ON or BEFORE cutoff
         self.train_df = self.transactions[self.transactions['InvoiceDate'] <= self.training_cutoff].copy()
-        
+
+        ## Interview Note
+        We split the dataset using a cutoff date because, in real life, we only know a customer's past behavior when making predictions. 
+        Transactions before the cutoff are used to calculate customer features such as Recency, Frequency, and Monetary Value. Transactions after the cutoff are used only to check whether the customer returned. If the 
+        customer made another purchase after the cutoff, they are marked as active; otherwise, they are marked as churned. This prevents using future information while training the model.
+       
+         The key idea is:
+           Training Data → Used to learn from the customer's past.
+           Observation Data → Used to verify what happened in the future and assign the churn label.
+               
         # Observation Data: Transactions AFTER cutoff
         self.obs_df = self.transactions[self.transactions['InvoiceDate'] > self.training_cutoff].copy()
         
