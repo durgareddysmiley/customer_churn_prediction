@@ -1,5 +1,6 @@
  import pandas as pd ## pandas is used to work with files used to make rows and columns into data frame 
 import numpy as np ## numpy is used to do mathematical calculations faster than lists 
+## Scikit-learn is a Python library that provides ready-made machine learning algorithms and tools.
 from sklearn.model_selection import train_test_split ## from says only extract limited methods..To divide your dataset 
                                                      ## into different parts (training, validation, or test) before building a model.
 from sklearn.preprocessing import StandardScaler, OneHotEncoder ## StandardScaler → Used for numerical columns. 
