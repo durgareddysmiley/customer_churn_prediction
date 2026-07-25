@@ -32,6 +32,11 @@ class DataCleaner:
             'missing_values_after': {},
             'steps_applied': []
         }
+
+       ## But with self
+       ## self.cleaning_stats = {}
+       ## Now it belongs to the object. Every function can use it.
+       ## If we write just cleaning_stats = {}.it works only inside the function 
     
     def load_data(self):
         """Load raw dataset"""
@@ -39,7 +44,7 @@ class DataCleaner:
         try:
             self.df = pd.read_csv(
                 self.input_path,
-                encoding='latin1',  # Commonly needed for this dataset
+                encoding='latin1',  # Commonly needed for this dataset every test file shows based on encoding
                 parse_dates=['InvoiceDate'] ## parse_dates is parameter it converts date strings from the CSV into datetime objects.
             )
             # Normalize column names just in case
@@ -148,7 +153,8 @@ class DataCleaner:
         Q1 = self.df['Quantity'].quantile(0.25)
         Q3 = self.df['Quantity'].quantile(0.75)
         IQR = Q3 - Q1
-        upper_bound = Q3 + 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR ## this line calculates the upper limit for identifying outliers using the 
+                                     ## IQR method. Any value greater than Q3 + 1.5 × IQR is considered an outlier.
         
         self.df = self.df[self.df['Quantity'] <= upper_bound]
         
