@@ -88,13 +88,16 @@ def prepare_data():
     # Fit on training data ONLY
     ##  the below code consists of Learn from the training data only, then apply the same learning to the validation and test data.
     X_train_processed = preprocessor.fit_transform(X_train) 
-    
+
+    ## Training -> You study from your textbook. -> You learn the concepts. -> This is fit.
     # Transform Val and Test
-    X_val_processed = preprocessor.transform(X_val)
+    X_val_processed = preprocessor.transform(X_val)  -> You use what you learned.  -> This is transform. -> You don't learn new concepts during the exam.
+    ## Similarly, -> Training data → Learn (fit) -> Validation/Test data → Apply the same learning (transform).
+
     X_test_processed = preprocessor.transform(X_test)
     
     # Get feature names after encoding
-    try:
+    try:  ## After processing new columns will come to know the we will see by get_feature_names_out
         feature_names = preprocessor.get_feature_names_out()
     except:
         # Fallback if older sklearn
