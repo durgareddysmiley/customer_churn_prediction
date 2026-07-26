@@ -4,7 +4,7 @@ import numpy as np ## numpy is used to do mathematical calculations faster than 
 from sklearn.model_selection import train_test_split ## from says only extract limited methods..To divide your dataset 
                                                      ## into different parts (training, validation, or test) before building a model.
 from sklearn.preprocessing import StandardScaler, OneHotEncoder ## StandardScaler → Used for numerical columns. 
-                                                                ## OneHotEncoder → Used for categorical (text) columns.
+                                                                 ## OneHotEncoder → Used for categorical (text) columns.
 from sklearn.compose import ColumnTransformer ## Without ColumnTransformer, you would have to preprocess numeric and categorical
     ## columns separately and then manually combine them.With ColumnTransformer, all preprocessing
     ## is done in one step, making your ML pipeline cleaner and reducing mistakes.
@@ -21,14 +21,20 @@ def prepare_data():
     
     # 1. Define Features (X) and Target (y)
     # Drop non-feature columns
-    drop_cols = ['CustomerID', 'Churn'] ## So CustomerID is removed because it is just an identifier, and Churn is removed from X because it is the answer the
-                                        ## model is trying to learn to predict.
+    drop_cols = ['CustomerID', 'Churn'] 
+    ## The model may start trying to find patterns in the ID numbers, such as: "Maybe customers with IDs above 1000 churn more."
+    ## That pattern is meaningless because the IDs were assigned arbitrarily.
+
+   ## We remove the Churn column from X because Churn is the answer that the model is supposed to learn and predict. 
+   ## During training, the model uses the input features like Recency, Frequency, and TotalSpent to learn the relationship with the Churn column. If 
+    ## we include Churn in the input features, we would already be giving the model the answer, so it would not learn anything meaningful."
+
     X = df.drop(columns=drop_cols)
     y = df['Churn']
     
     # 2. Identify Column Types
     numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()  ## gives column names which are in float or integer
-    categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()
+    categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()  ## customers.tolist() means convert the pandas dataframe into list
 ## y we are doing n, and cg because later we do operations like  Standard scalar which want only object or category for this we are doing this  
  
     print(f"Numeric features: {len(numeric_features)}")
