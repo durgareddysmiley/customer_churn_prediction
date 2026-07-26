@@ -123,7 +123,8 @@ def prepare_data():
     # Save Feature Names
     with open('data/processed/feature_names.json', 'w') as f:
         json.dump(list(feature_names), f)
-        
+    ## json.dump() -> dump() writes JSON data directly to a file.
+    ## json.dumps() -> dumps() does not save anything to a file. -> It converts a Python object into a JSON string and returns it. 
     print("Data preparation complete.")
     print(f"Train shape: {X_train_processed.shape}")
     print(f"Val shape: {X_val_processed.shape}")
