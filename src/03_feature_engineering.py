@@ -169,9 +169,10 @@ class FeatureEngineer:
             df['F_Score'] = pd.qcut(df['Frequency'], 4, labels=[1, 2, 3, 4])
         except ValueError:
             # Fallback for duplicates
+            if frequencey is having same for we cant able to asssign groups so we need to initialize rank b y using doen code and to take groups 
             df['F_Score'] = pd.qcut(df['Frequency'].rank(method='first'), 4, labels=[1, 2, 3, 4])
             
-        try:
+        try: 
             df['M_Score'] = pd.qcut(df['TotalSpent'], 4, labels=[1, 2, 3, 4])
         except ValueError:
             df['M_Score'] = pd.qcut(df['TotalSpent'].rank(method='first'), 4, labels=[1, 2, 3, 4])
