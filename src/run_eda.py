@@ -36,7 +36,7 @@ def run_eda():
  |  ███   ███
  |  ███   ███
  +------------------>
-      0      1
+      0      1  
      Churn
   
     plt.title("Churn Distribution")
