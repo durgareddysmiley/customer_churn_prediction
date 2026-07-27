@@ -15,6 +15,10 @@ ColumnTransformer, we would have to preprocess numeric and categorical columns s
 
 from sklearn.pipeline import Pipeline
 
+## What is Pipeline?
+
+## A Pipeline is a Scikit-learn class that allows us to connect multiple machine learning steps into a single workflow.
+
 import joblib 
 import json ## JSON IS TO STORE OR EXCHANGE THE DATA 
 ## "json.dump() is used to write a Python object directly to a JSON file. json.dumps() converts a Python object into a JSON-formatted string without 
