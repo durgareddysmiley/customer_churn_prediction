@@ -4,6 +4,10 @@ import time
 import joblib
 import json
 import os
+## "Logistic Regression is a supervised machine learning algorithm used for classification 
+## tasks. It predicts the probability that a data point belongs to a particular class. In my customer
+## churn project, it predicts the probability that a customer will churn. If the probability is greater
+## than a chosen threshold, such as 0.5, the customer is classified as churned; otherwise, they are classified as active
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
