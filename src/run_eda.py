@@ -22,10 +22,27 @@ def run_eda():
     # 1. Churn Distribution
     plt.figure(figsize=(6,4))
     sns.countplot(data=df, x='Churn')
+
+  ## Real-time Example
+  ## Suppose a company has 100 customers.
+  ## 80 customers stayed (Churn = 0)
+  ## 20 customers left (Churn = 1)
+  ## The countplot immediately shows that there are many more active customers than churned customers.
+
+  Count
+ ^
+ |        ███
+ |        ███
+ |  ███   ███
+ |  ███   ███
+ +------------------>
+      0      1
+     Churn
+  
     plt.title("Churn Distribution")
     plt.savefig('visualizations/eda/churn_distribution.png')
     plt.close()
-    
+     
     # 2. RFM vs Churn
     fig, axes = plt.subplots(1, 3, figsize=(18, 5))
     
