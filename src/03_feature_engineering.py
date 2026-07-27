@@ -186,7 +186,7 @@ class FeatureEngineer:
         def segment_customer(score):
             if score >= 10: return 'Champions'
             elif score >= 8: return 'Loyal'
-            elif score >= 6: return 'Potential'
+            elif score >= 6: return 'Potential' 
             elif score >= 4: return 'At Risk'
             else: return 'Lost'
             
