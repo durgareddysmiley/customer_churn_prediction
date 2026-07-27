@@ -11,6 +11,8 @@ from sklearn.compose import ColumnTransformer ## Without ColumnTransformer, you 
 from sklearn.pipeline import Pipeline
 import joblib 
 import json ## JSON IS TO STORE OR EXCHANGE THE DATA 
+## "json.dump() is used to write a Python object directly to a JSON file. json.dumps() converts a Python object into a JSON-formatted string without 
+## creating a file. To read data back from a JSON file, we use json.load(), and to convert a JSON string back into a Python object, we use json.loads()."
 import os
 
 def prepare_data():
