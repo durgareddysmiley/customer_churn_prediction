@@ -6,7 +6,7 @@ import joblib ## it is mainly used to save trained models so you don't have to t
 ## Train the model.
 ## Close Python.
 ## Next time, train the model again.   
-## This wastes time.
+## This wastes time. 
 
 ## With Joblib:
 
