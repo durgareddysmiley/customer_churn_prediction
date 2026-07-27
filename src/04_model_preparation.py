@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder ## StandardScale
 from sklearn.compose import ColumnTransformer ## Without ColumnTransformer, you would have to preprocess numeric and categorical
     ## columns separately and then manually combine them.With ColumnTransformer, all preprocessing
     ## is done in one step, making your ML pipeline cleaner and reducing mistakes.
-from sklearn.pipeline import Pipeline
+from sklearn.pipeline import Pipeline 
 import joblib 
 import json ## JSON IS TO STORE OR EXCHANGE THE DATA 
 ## "json.dump() is used to write a Python object directly to a JSON file. json.dumps() converts a Python object into a JSON-formatted string without 
