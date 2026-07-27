@@ -8,7 +8,13 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder ## StandardScale
 from sklearn.compose import ColumnTransformer ## Without ColumnTransformer, you would have to preprocess numeric and categorical
     ## columns separately and then manually combine them.With ColumnTransformer, all preprocessing
     ## is done in one step, making your ML pipeline cleaner and reducing mistakes.
-from sklearn.pipeline import Pipeline 
+
+## ColumnTransformer allows us to apply different preprocessing techniques to different columns in a single pipeline. For example, it applies StandardScaler to n
+umeric columns and OneHotEncoder to categorical columns at the same time. It then automatically combines the processed outputs into one final dataset. Without 
+ColumnTransformer, we would have to preprocess numeric and categorical columns separately and manually merge them, which makes the code longer and more error-prone.
+
+from sklearn.pipeline import Pipeline
+
 import joblib 
 import json ## JSON IS TO STORE OR EXCHANGE THE DATA 
 ## "json.dump() is used to write a Python object directly to a JSON file. json.dumps() converts a Python object into a JSON-formatted string without 
@@ -74,7 +80,10 @@ def prepare_data():
     # 4. Create Preprocessing Pipeline
     # Numeric: Scale
     # Categorical: One-Hot Encode  ## ONEHOT ENCODER MEANS CONVERT TEXT TO NUMBERS
-    
+ 
+    ## StandardScaler is a preprocessing technique that scales (standardizes) numeric features so that they have a mean of 0 and a standard deviation of 1.
+
+    ## OneHotEncoder is a preprocessing technique used to convert categorical (text) data into numeric values so that machine learning models can understand them.
     preprocessor = ColumnTransformer(
         transformers=[
             ('num', StandardScaler(), numeric_features), 
